@@ -15,4 +15,6 @@ Currently relies on `curl` being installed, as I cannot make `sttp` to properly 
 
 ## building
 
-Builds with sbt against Scala 3. See options: `sbt 'run --help'`.
+Builds with sbt against Scala 3. See options: `sbt 'run --help'`. E.g.
+
+    sbt 'run --expo-id 835089 --weave-id 835129'
