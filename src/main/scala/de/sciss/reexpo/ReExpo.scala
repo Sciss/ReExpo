@@ -66,7 +66,7 @@ class ReExpo() {
   }
 
   def listWeaves(expoId: Long): Seq[Weave] = {
-    val res   = post("editor" :: "weaves" :: Nil, data = Map("research" -> expoId.toString))
+    val res = post("editor" :: "weaves" :: Nil, data = Map("research" -> expoId.toString))
 
     /*
 
@@ -98,6 +98,14 @@ class ReExpo() {
           throw RCException(s"Unexpected weave data '$row'")
       }
     }
+  }
+
+  // XXX TODO do proper parsing of result; see `notes/editor-contents-example.txt`
+  def listContent(expoId: Long, weaveId: Long): Any = {
+    val res = post("editor" :: "content" :: Nil, data = Map("research" -> expoId.toString, "weave" -> weaveId.toString))
+    println("res >>")
+    println(res)
+    println("<< res")
   }
 
   private def post(path: Seq[String], data: Map[String, String] = Map.empty /*, files = None, headers = None*/): String = {

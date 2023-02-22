@@ -1,0 +1,27 @@
+EDITOR-API:
+
+<div class="tool tool-audio" style="left:500px;top:600px;width:420px;height:30px;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-width:0px;border-style:none;border-radius:0px;box-shadow:0px 0px 0px ;z-index:7;background-position:left top;background-repeat:repeat;background-size:auto" data-id="1927176" data-source="" data-locked="0" data-editable="1" data-tool="audio" data-title="audio #1" data-date="31/01/2023" data-options="[]" data-rotate="0" data-popover="" data-popover-options="[]">
+  <a id="tool-1927176"></a>
+  <div class="tool-content" style="top:0px;right:0px;bottom:0px;left:0px;opacity:1">
+    <div class="tool-audio-preview"></div>
+    <div class="icon"></div>
+  </div>
+  <div class="menu"></div>
+</div>
+
+RENDERED:
+
+<div class="tool tool-audio" style="left:500px;top:600px;width:420px;height:30px;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-width:0px;border-style:none;border-radius:0px;box-shadow:0px 0px 0px ;z-index:7;background-position:left top;background-repeat:repeat;background-size:auto" data-id="1927176" data-source="" data-locked="0" data-editable="1" data-tool="audio" data-title="" data-date="" data-options="[]" data-rotate="0" data-popover="" data-popover-options="[]">
+  <a id="tool-1927176"></a>
+  <div class="tool-content" style="top:0px;right:0px;bottom:0px;left:0px;opacity:1">
+    <div id="audio-1927176" width="420" height="30"
+                data-file="https://media.researchcatalogue.net/rc/derivative/b8/52/52/3a/b852523a3206055c8897d90dd56a5322.mp3?t=fddf6a5f24d9aac182dc5568d2fc301d&e=1677192000"
+                data-image-width="100" data-image-height="50"
+                data-loop="" data-autoplay=""
+                data-hide-player="" data-stop-other-players=""
+                data-display-volume="" data-display-minimal="">
+    </div>
+    <div class="icon"></div>
+  </div>
+</div>
+

@@ -1,0 +1,157 @@
+<div class="tool tool-text scrollbar-auto" style="left:96px;top:70px;width:908px;height:75px;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-width:0px;border-style:none;border-radius:0px;box-shadow:0px 0px 0px ;z-index:1;background-position:left top;background-repeat:repeat;background-size:auto;transform:rotate(0deg);-moz-transform:rotate(0deg);-webkit-transform:rotate(0deg);-o-transform:rotate(0deg);-ms-transform:rotate(0deg)" data-id="1925171" data-source="" data-locked="0" data-editable="1" data-tool="text" data-title="html #1" data-date="30/01/2023" data-options="[]" data-rotate="0" data-popover="" data-popover-options="[]" data-text-author="Hanns Holger Rutz" data-text-modified="30.01.2023 - 15:29:02">
+  <a id="tool-1925171"></a>
+  <div class="tool-content" style="top:0px;right:0px;bottom:0px;left:0px;opacity:1">
+    <span class="html-text-editor-content mceContentBody">
+      <h2>This is a private (not publicly visible) sandbox exposition for the KWDS Seminar on Publication and Funding Acquisition</h2>
+    </span>
+    <div class="icon"></div>
+  </div>
+  <div class="menu"></div>
+</div>
+
+<div class="tool tool-text scrollbar-auto" style="left:138px;top:175px;width:405px;height:91px;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-width:0px;border-style:none;border-radius:0px;box-shadow:0px 0px 0px ;z-index:2;background-position:left top;background-repeat:repeat;background-size:auto;transform:rotate(0deg);-moz-transform:rotate(0deg);-webkit-transform:rotate(0deg);-o-transform:rotate(0deg);-ms-transform:rotate(0deg)" data-id="1925177" data-source="" data-locked="0" data-editable="1" data-tool="text" data-title="html #2" data-date="30/01/2023" data-options="[]" data-rotate="0" data-popover="" data-popover-options="[]" data-text-author="Hanns Holger Rutz" data-text-modified="30.01.2023 - 15:29:37">
+  <a id="tool-1925177"></a>
+  <div class="tool-content" style="top:0px;right:0px;bottom:0px;left:0px;opacity:1">
+    <span class="html-text-editor-content mceContentBody">
+      <p>We will use this on Tuesday for a group exercise.</p>
+    </span>
+    <div class="icon"></div>
+  </div>
+  <div class="menu"></div>
+</div>
+
+<div class="tool tool-simpletext " style="left:203px;top:293px;width:150px;height:150px;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-width:0px;border-radius:0px;box-shadow:0px 0px 0px ;z-index:3;transform:rotate(0deg);-moz-transform:rotate(0deg);-webkit-transform:rotate(0deg);-o-transform:rotate(0deg);-ms-transform:rotate(0deg)" data-id="1927166" data-source="" data-locked="0" data-editable="1" data-tool="simpletext" data-title="text #1" data-date="31/01/2023" data-options="[]" data-rotate="0" data-popover="" data-popover-options="[]">
+  <a id="tool-1927166"></a>
+  <div class="tool-content" style="top:0px;right:0px;bottom:0px;left:0px;opacity:1">
+    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+    <html><body>
+      <span class="simple-text-editor-content mceContentBody">
+        <p>Hello</p>
+      </span>
+    </body></html>
+    <div class="icon"></div>
+  </div>
+  <div class="menu"></div>
+</div>
+
+<div class="tool tool-text scrollbar-auto" style="left:615px;top:230px;width:255px;height:160px;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-width:0px;border-style:none;border-radius:0px;box-shadow:0px 0px 0px ;z-index:4;background-position:left top;background-repeat:repeat;background-size:auto;transform:rotate(0deg);-moz-transform:rotate(0deg);-webkit-transform:rotate(0deg);-o-transform:rotate(0deg);-ms-transform:rotate(0deg)" data-id="1927167" data-source="" data-locked="0" data-editable="1" data-tool="text" data-title="html #3" data-date="31/01/2023" data-options="[]" data-rotate="0" data-popover="" data-popover-options="[]" data-text-author="Hanns Holger Rutz" data-text-modified="31.01.2023 - 13:15:27">
+  <a id="tool-1927167"></a>
+  <div class="tool-content" style="top:0px;right:0px;bottom:0px;left:0px;opacity:1">
+    <span class="html-text-editor-content mceContentBody">
+      <h2>My Abstract</h2>
+      <p>In the music of Franz Liszt, .....</p>
+    </span>
+    <div class="icon"></div>
+  </div>
+  <div class="menu"></div>
+</div>
+
+<div class="tool tool-picture" style="left:256px;top:439px;width:247px;height:71px;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-width:0px;border-style:none;border-radius:0px;box-shadow:0px 0px 0px ;z-index:5;background-position:left top;background-repeat:repeat;background-size:auto;transform:rotate(0deg);-moz-transform:rotate(0deg);-webkit-transform:rotate(0deg);-o-transform:rotate(0deg);-ms-transform:rotate(0deg)" data-id="1927168" data-source="" data-locked="0" data-editable="1" data-tool="picture" data-title="picture #1" data-date="31/01/2023" data-options="[]" data-rotate="0" data-popover="" data-popover-options="[]">
+  <a id="tool-1927168"></a>
+  <div class="tool-content" style="top:0px;right:0px;bottom:0px;left:0px;opacity:1">
+    <img style="width:244px;height:71px" data-position="{&quot;my&quot;:&quot;center center&quot;,&quot;at&quot;:&quot;center center&quot;,&quot;collision&quot;:&quot;none&quot;}" src="https://media.researchcatalogue.net/rc/cache/29/cf/70/0e/29cf700e6ab24b97606131ad61606c3e.png?t=45105db3a5ff68cde740f7d22bbe3f72&amp;e=1677190500" data-size="contain" data-aspectRatio="3.4357142857143" />
+    <div class="icon"></div>
+  </div>
+  <div class="menu"></div>
+</div>
+
+<!-- empty picture -->
+<div class="tool tool-picture" style="left:745px;top:405px;width:150px;height:150px;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-width:0px;border-style:none;border-radius:0px;box-shadow:0px 0px 0px ;z-index:6;background-position:left top;background-repeat:repeat;background-size:auto;transform:rotate(0deg);-moz-transform:rotate(0deg);-webkit-transform:rotate(0deg);-o-transform:rotate(0deg);-ms-transform:rotate(0deg)" data-id="1927174" data-source="" data-locked="0" data-editable="1" data-tool="picture" data-title="picture #2" data-date="31/01/2023" data-options="[]" data-rotate="0" data-popover="" data-popover-options="[]">
+  <a id="tool-1927174"></a>
+  <div class="tool-content" style="top:0px;right:0px;bottom:0px;left:0px;opacity:1">
+    <div class="icon"></div>
+  </div>
+  <div class="menu"></div>
+</div>
+
+<!-- note: audio file not parsable here -->
+<div class="tool tool-audio" style="left:500px;top:600px;width:420px;height:30px;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-width:0px;border-style:none;border-radius:0px;box-shadow:0px 0px 0px ;z-index:7;background-position:left top;background-repeat:repeat;background-size:auto" data-id="1927176" data-source="" data-locked="0" data-editable="1" data-tool="audio" data-title="audio #1" data-date="31/01/2023" data-options="[]" data-rotate="0" data-popover="" data-popover-options="[]">
+  <a id="tool-1927176"></a>
+  <div class="tool-content" style="top:0px;right:0px;bottom:0px;left:0px;opacity:1">
+    <div class="tool-audio-preview"></div>
+    <div class="icon"></div>
+  </div>
+  <div class="menu"></div>
+</div>
+
+<!-- note the 'amp;' has to be removed from the img url -->
+<div class="tool tool-picture" style="left:620px;top:285px;width:150px;height:150px;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-width:0px;border-style:none;border-radius:0px;box-shadow:0px 0px 0px ;z-index:8;background-position:left top;background-repeat:repeat;background-size:auto;transform:rotate(0deg);-moz-transform:rotate(0deg);-webkit-transform:rotate(0deg);-o-transform:rotate(0deg);-ms-transform:rotate(0deg)" data-id="1927180" data-source="" data-locked="0" data-editable="1" data-tool="picture" data-title="picture #3" data-date="31/01/2023" data-options="[]" data-rotate="0" data-popover="" data-popover-options="[]">
+  <a id="tool-1927180"></a>
+  <div class="tool-content" style="top:0px;right:0px;bottom:0px;left:0px;opacity:1">
+    <img style="width:120px;height:150px" data-position="{&quot;my&quot;:&quot;center center&quot;,&quot;at&quot;:&quot;center center&quot;,&quot;collision&quot;:&quot;none&quot;}" src="https://media.researchcatalogue.net/rc/cache/e1/92/b6/e6/e192b6e65de57fa1f850d772b13ee4e5.png?t=7a00eee1a5688ca43be66c4e35054f68&amp;e=1677190500" data-size="contain" data-aspectRatio="0.7958984375" />
+    <div class="icon"></div>
+  </div>
+  <div class="menu"></div>
+</div>
+
+<div class="tool tool-comment" style="left:856px;top:372px;width:150px;height:150px;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-width:0px;border-radius:0px;box-shadow:0px 0px 0px ;z-index:1009" data-id="1927185" data-source="" data-locked="0" data-editable="1" data-tool="comment" data-title="note #1" data-date="31/01/2023" data-options="[]" data-rotate="0" data-popover="" data-popover-options="[]" data-creator-id="1098063" data-creator-name="Foo Bar" data-resolution="open" data-assignee-id="-1" data-assignee-name="none" data-deadline="" data-text-author="Foo Bar" data-text-modified="31.01.2023 - 13:21:33">
+  <a id="tool-1927185"></a>
+  <div class="tool-content" style="top:0px;right:0px;bottom:0px;left:0px;opacity:1">
+    <div class="comment-header">Foo Bar - 31.01.2023 - 13:21:33</div>
+    <div class="comment-content">
+      <textarea>This is a comment</textarea>
+    </div>
+    <div class="icon icon-remove" title="remove comment"></div>
+    <input type="checkbox" />
+  </div>
+  <div class="menu"></div>
+</div>
+
+<div class="tool tool-picture" style="left:1045px;top:376px;width:123px;height:150px;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-width:0px;border-style:none;border-radius:0px;box-shadow:0px 0px 0px ;z-index:1010;background-position:left top;background-repeat:repeat;background-size:auto;transform:rotate(0deg);-moz-transform:rotate(0deg);-webkit-transform:rotate(0deg);-o-transform:rotate(0deg);-ms-transform:rotate(0deg)" data-id="1927186" data-source="" data-locked="0" data-editable="1" data-tool="picture" data-title="picture #4" data-date="31/01/2023" data-options="[]" data-rotate="0" data-popover="" data-popover-options="[]">
+  <a id="tool-1927186"></a>
+  <div class="tool-content" style="top:0px;right:0px;bottom:0px;left:0px;opacity:1">
+    <img style="width:123px;height:150px" data-position="{&quot;my&quot;:&quot;center center&quot;,&quot;at&quot;:&quot;center center&quot;,&quot;collision&quot;:&quot;none&quot;}" src="https://media.researchcatalogue.net/rc/cache/9b/87/b3/d6/9b87b3d60a0a7ef1d5a13fe7e99e7777.png?t=f975b4f94b5b5719eadf947117e1f541&amp;e=1677190500" data-size="contain" data-aspectRatio="0.82258064516129" />
+    <div class="icon"></div>
+  </div>
+  <div class="menu"></div>
+</div>
+
+<div class="tool tool-text scrollbar-auto" style="left:1110px;top:130px;width:150px;height:150px;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-width:0px;border-style:none;border-radius:0px;box-shadow:0px 0px 0px ;z-index:1011;background-position:left top;background-repeat:repeat;background-size:auto;transform:rotate(0deg);-moz-transform:rotate(0deg);-webkit-transform:rotate(0deg);-o-transform:rotate(0deg);-ms-transform:rotate(0deg)" data-id="1927187" data-source="" data-locked="0" data-editable="1" data-tool="text" data-title="html #4" data-date="31/01/2023" data-options="[]" data-rotate="0" data-popover="" data-popover-options="[]" data-text-author="Hanns Holger Rutz" data-text-modified="31.01.2023 - 13:21:48">
+  <a id="tool-1927187"></a>
+  <div class="tool-content" style="top:0px;right:0px;bottom:0px;left:0px;opacity:1">
+    <span class="html-text-editor-content mceContentBody">
+      <p>Hallo</p>
+    </span>
+    <div class="icon"></div>
+  </div>
+  <div class="menu"></div>
+</div>
+
+<div class="tool tool-simpletext scrollbar-auto" style="left:436px;top:235px;width:150px;height:54px;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-width:0px;border-style:none;border-radius:0px;box-shadow:0px 0px 0px ;z-index:1012;background-position:left top;background-repeat:repeat;background-size:auto;background-color:rgba(138,66,138,1);transform:rotate(0deg);-moz-transform:rotate(0deg);-webkit-transform:rotate(0deg);-o-transform:rotate(0deg);-ms-transform:rotate(0deg)" data-id="1927190" data-source="" data-locked="0" data-editable="1" data-tool="simpletext" data-title="text #2" data-date="31/01/2023" data-options="[]" data-rotate="0" data-popover="" data-popover-options="[]">
+  <a id="tool-1927190"></a>
+  <div class="tool-content" style="top:0px;right:0px;bottom:0px;left:0px;opacity:1">
+    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+    <html><body>
+      <span class="simple-text-editor-content mceContentBody">
+        <p>Thank you, now it worked</p>
+        <p>&nbsp;</p>
+      </span>
+    </body></html>
+    <div class="icon"></div>
+  </div>
+  <div class="menu"></div>
+</div>
+
+<div class="tool tool-embed" style="left:286px;top:320px;width:150px;height:150px;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-width:0px;border-style:none;border-radius:0px;box-shadow:0px 0px 0px ;z-index:1013;background-position:left top;background-repeat:repeat;background-size:auto;transform:rotate(0deg);-moz-transform:rotate(0deg);-webkit-transform:rotate(0deg);-o-transform:rotate(0deg);-ms-transform:rotate(0deg)" data-id="1927191" data-source="" data-locked="0" data-editable="1" data-tool="embed" data-title="embed #1" data-date="31/01/2023" data-options="[]" data-rotate="0" data-popover="" data-popover-options="[]">
+  <a id="tool-1927191"></a>
+  <div class="tool-content" style="top:0px;right:0px;bottom:0px;left:0px;opacity:1">
+    <div class="icon"></div>
+  </div>
+  <div class="menu"></div>
+</div>
+
+<div class="tool tool-shape" style="left:604px;top:816px;width:454px;height:150px;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-width:0px;border-style:none;border-radius:0px;box-shadow:0px 0px 0px ;z-index:1014;background-position:left top;background-repeat:repeat;background-size:auto;transform:rotate(-121.25deg);-moz-transform:rotate(-121.25deg);-webkit-transform:rotate(-121.25deg);-o-transform:rotate(-121.25deg);-ms-transform:rotate(-121.25deg)" data-id="1927201" data-source="" data-locked="0" data-editable="1" data-tool="shape" data-title="shape #1" data-date="31/01/2023" data-options="[]" data-rotate="-121.25" data-popover="" data-popover-options="[]">
+  <a id="tool-1927201"></a>
+  <div class="tool-content" style="top:0px;right:0px;bottom:0px;left:0px;opacity:1">
+    <svg xmlns="http://www.w3.org/2000/svg" width="454px" height="150px" data-type="arrowRight">
+      <g transform="rotate(180,227,75)">
+        <line x1="0" y1="74" x2="106.06601717798" y2="75" stroke="black" stroke-width="3" transform="rotate(45,0,75)"></line>
+        <line x1="0" y1="75" x2="454" y2="75" stroke="black" stroke-width="3" stroke-dashArray="3,3"></line>
+        <line x1="0" y1="76" x2="106.06601717798" y2="75" stroke="black" stroke-width="3" transform="rotate(315,0,75)"></line>
+      </g>
+    </svg>
+    <div class="icon"></div>
+  </div>
+  <div class="menu"></div>
+</div>
+
