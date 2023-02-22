@@ -25,7 +25,11 @@ lazy val root = project.in(file("."))
   .settings(commonSettings)
   .settings(
     name := baseName,
-    description  := "Parsers and Processors for Working with Research Catalogue Expositions"
+    description  := "Parsers and Processors for Working with Research Catalogue Expositions",
+    console / initialCommands := {
+      """import de.sciss.reexpo._
+        |""".stripMargin
+    }
   )
 
 lazy val deps = new {

@@ -18,3 +18,7 @@ Currently relies on `curl` being installed, as I cannot make `sttp` to properly 
 Builds with [sbt](https://www.scala-sbt.org/) against Scala 3. See options: `sbt 'run --help'`. E.g.
 
     sbt 'run --expo-id 835089 --weave-id 835129'
+
+## notes
+
+- [rcedit](https://github.com/grrrr/rcedit) - Python project that has figured out a substantial part of the RC's REST interface
