@@ -13,9 +13,9 @@
 
 package de.sciss.reexpo
 
-import de.sciss.log.Logger
+import de.sciss.log.{Level, Logger}
 import org.jsoup.Jsoup
-import org.rogach.scallop.{ScallopConf, ScallopOption => Opt}
+import org.rogach.scallop.{ScallopConf, ScallopOption as Opt}
 import sttp.client3.{Request, Response, SimpleHttpClient, UriContext, asStringAlways, basicRequest, emptyRequest}
 import sttp.model.headers.CookieWithMeta
 
@@ -32,6 +32,7 @@ object ReExpo {
                      weaveId  : Long    = 0L,
                      username : String  = "user",
                      password : String  = "pass",
+                     debug    : Boolean = false,
                    )
 
   def main(args: Array[String]): Unit = {
@@ -57,6 +58,9 @@ object ReExpo {
       val pass: Opt[String] = opt(required = true,
         descr = "RC account password",
       )
+      val debug: Opt[Boolean] = toggle(default = Some(default.debug),
+        descrYes = "Enable debug logging",
+      )
 
       verify()
       given config: Config = Config(
@@ -64,6 +68,7 @@ object ReExpo {
         weaveId   = weaveId(),
         username  = user(),
         password  = pass(),
+        debug     = debug(),
       )
     }
     import p.config
@@ -72,6 +77,7 @@ object ReExpo {
 
   def run()(using c: Config): Unit = {
     import c.{weaveId => _, *}
+    if c.debug then log.level = Level.Debug
     val re = ReExpo()
     re.login(username = username, password = password)
     try {
@@ -79,7 +85,7 @@ object ReExpo {
         re.listWeaves(expoId).head.id
       }
       val res = re.listContent(expoId, weaveId)
-      println(res)
+      println(res.mkString(",\n"))
 
     } finally {
       re.logout()
@@ -144,9 +150,9 @@ class ReExpo() {
       row.select("td").asScala.toList match {
         case cellTpe :: cellTitle :: cellDate :: _ =>
           val tpe = cellTpe.text() match {
-            case "graphical"  => Weave.Type.Graphical
-            case "block"      => Weave.Type.Block
-            case "iframe"     => Weave.Type.IFrame
+            case "graphical"  => WeaveType.Graphical
+            case "block"      => WeaveType.Block
+            case "iframe"     => WeaveType.IFrame
             case other        => throw RCException(s"Unexpected weave type '$other'")
           }
           val title = cellTitle.text()
@@ -175,11 +181,16 @@ class ReExpo() {
   private def parseDate(s: String): LocalDate =
     LocalDate.parse(s, slashDateFmt)
 
+  private def parseDateTime(s: String): LocalDateTime =
+    if s.isEmpty then LocalDateTime.MIN else LocalDateTime.parse(s, modifiedDateFmt)
+
   def listContent(expoId: Long, weaveId: Long): Seq[Tool] = {
     val res = post("editor" :: "content" :: Nil, data = Map("research" -> expoId.toString, "weave" -> weaveId.toString))
-    println("res >>")
-    println(res)
-    println("<< res")
+    if log.level <= Level.Debug then {
+      println("res >>")
+      println(res)
+      println("<< res")
+    }
 
     val doc       = Jsoup.parseBodyFragment(res)
     val divTools  = doc.select("div.tool").asScala.toList
@@ -196,7 +207,8 @@ class ReExpo() {
       // XXX TODO: we should use a proper CSS parser; Jsoup doesn't support this out of the box
       val css         = mkCssMap(divTool.attr("style"))
       val layer       = css("z-index").toInt
-      val common      = ToolCommon(id = toolId, name = name, created = created, layer = layer)
+      val locked      = divTool.attr("data-locked").toInt != 0
+      val common      = ToolCommon(id = toolId, name = name, created = created, layer = layer, locked = locked)
 
       val bounds      = Rect2D(
         x       = cssPx(css("left")),
@@ -211,23 +223,50 @@ class ReExpo() {
       val fTool: PartialFunction[String, Tool] = {
         case "text" =>
           val author    = divTool.attr("data-text-author")
-          val modified  = LocalDateTime.parse(divTool.attr("data-text-modified"), modifiedDateFmt)
+          val modified  = parseDateTime(divTool.attr("data-text-modified"))
           val body      = divContent.select("span.html-text-editor-content")
-          val content   = HtmlContent(body.text())  // XXX TODO preserve inner HTML
+          val content   = HtmlContent(body.html())
           TextTool(common, style, content, author = author, modified = modified)
 
-//        case "simpletext" =>
-//          ...
-//        case "picture" =>
-//          ...
-//        case "audio" =>
-//          ...
-//        case "video" =>
-//          ...
-//        case "comment" =>
-//          ...
-//        case "shape" =>
-//          ...
+        case "simpletext" =>
+          val body      = divContent.select("span.simple-text-editor-content")
+          val content   = HtmlContent(body.html())
+          SimpleTextTool(common, style, content)
+
+        case "picture" =>
+          val content   = Option.empty[ImageContent]  // XXX TODO parse rendered page
+          PictureTool(common, style, content)
+
+        case "audio" =>
+          val content = Option.empty[AudioContent]    // XXX TODO parse rendered page
+          AudioTool(common, style, content)
+
+        case "video" =>
+          val content   = Option.empty[VideoContent]  // XXX TODO parse rendered page
+          VideoTool(common, style, content)
+
+        case "comment" =>
+          val author    = divTool.attr("data-text-author")
+          val modified  = parseDateTime(divTool.attr("data-text-modified"))
+          val body      = divContent.select("textarea")
+          val content   = body.text()
+          val resolved  = divTool.attr("data-resolution") == "resolved"
+          CommentTool(common, style, content, author = author, modified = modified, resolved = resolved)
+
+        case "shape" =>
+          val body      = divContent.select("svg")
+          val content   = SvgContent(body.outerHtml())
+          val shapeType = body.attr("data-type") match {
+            case "rect"         => ShapeType.Rect
+            case "circle"       => ShapeType.Circle
+            case "line"         => ShapeType.HLine
+            case "verticalLine" => ShapeType.VLine
+            case "arrowLeft"    => ShapeType.ArrowLeft
+            case "arrowUp"      => ShapeType.ArrowUp
+            case "arrowRight"   => ShapeType.ArrowRight
+            case "arrowDown"    => ShapeType.ArrowDown
+          }
+          ShapeTool(common, style, content, tpe = shapeType)
       }
 
       val toolOpt = fTool.lift(toolTpe)

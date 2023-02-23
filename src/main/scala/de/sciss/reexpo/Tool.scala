@@ -6,7 +6,7 @@ import java.time.{LocalDate, LocalDateTime}
 
 case class Rect2D(x: Int, y: Int, width: Int, height: Int)
 
-case class ToolCommon(id: Long, name: String, created: LocalDate, layer: Int)
+case class ToolCommon(id: Long, name: String, created: LocalDate, layer: Int, locked: Boolean = false)
 case class ToolStyle(bounds: Rect2D, rotation: Double = 0.0)
 
 sealed trait Tool {
@@ -20,9 +20,15 @@ sealed trait TextToolBase extends Tool {
   def content: HtmlContent
 }
 
+sealed trait AuthoredTextTool extends Tool {
+  def author: String
+  /** `LocalDateTime.MIN` if undefined (comments) */
+  def modified: LocalDateTime
+}
+
 case class TextTool(common: ToolCommon, style: ToolStyle,
                     content: HtmlContent, author: String, modified: LocalDateTime)
-  extends TextToolBase
+  extends TextToolBase with AuthoredTextTool
 
 case class SimpleTextTool(common: ToolCommon, style: ToolStyle,
                           content: HtmlContent)
@@ -39,4 +45,24 @@ case class VideoContent(width: Int, height: Int, cache: Uri, poster: ImageConten
 
 case class VideoTool(common: ToolCommon, style: ToolStyle,
                      content: Option[VideoContent])
+  extends Tool
+
+case class AudioContent(cache: Uri)
+
+case class AudioTool(common: ToolCommon, style: ToolStyle,
+                     content: Option[AudioContent])
+  extends Tool
+
+case class CommentTool(common: ToolCommon, style: ToolStyle,
+                       content: String, author: String, modified: LocalDateTime, resolved: Boolean)
+  extends Tool with AuthoredTextTool
+
+case class SvgContent(source: String)
+
+enum ShapeType {
+  case Rect, Circle, HLine, VLine, ArrowLeft, ArrowUp, ArrowRight, ArrowDown
+}
+
+case class ShapeTool(common: ToolCommon, style: ToolStyle,
+                     content: SvgContent, tpe: ShapeType)
   extends Tool

@@ -15,9 +15,7 @@ package de.sciss.reexpo
 
 import java.time.LocalDate
 
-object Weave {
-  enum Type {
-    case Graphical, Block, IFrame
-  }
+enum WeaveType {
+  case Graphical, Block, IFrame
 }
-case class Weave(id: Long, tpe: Weave.Type, title: String, created: LocalDate)
+case class Weave(id: Long, tpe: WeaveType, title: String, created: LocalDate)
