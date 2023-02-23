@@ -1,5 +1,5 @@
 /*
- *  Test.scala
+ *  WeaveMeta.scala
  *  (ReExpo)
  *
  *  Copyright (c) 2023 Hanns Holger Rutz. All rights reserved.
@@ -18,4 +18,4 @@ import java.time.LocalDate
 enum WeaveType {
   case Graphical, Block, IFrame
 }
-case class Weave(id: Long, tpe: WeaveType, title: String, created: LocalDate)
+case class WeaveMeta(id: Long, tpe: WeaveType, title: String, created: LocalDate)

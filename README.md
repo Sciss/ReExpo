@@ -15,9 +15,15 @@ Currently relies on `curl` being installed, as I cannot make `sttp` to properly 
 
 ## building
 
-Builds with [sbt](https://www.scala-sbt.org/) against Scala 3. See options: `sbt 'run --help'`. E.g.
+Builds with [sbt](https://www.scala-sbt.org/) against Scala 3. See options: `sbt 'core/run --help'`. E.g.
 
-    sbt 'run --expo-id 835089 --weave-id 835129'
+    sbt 'core/run --expo-id 835089 --weave-id 835129'
+    sbt ui/run
+
+Or build an assembled jar:
+
+    sbt ui/assembly
+    java -jar ui/ReExpo.jar
 
 ## notes
 

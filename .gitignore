@@ -10,4 +10,4 @@ project/boot/
 *-assembly-*.jar
 workspaces/*.mllt/*.csv
 .vscode
-online/Rogues-online.jar
+ui/ReExpo.jar

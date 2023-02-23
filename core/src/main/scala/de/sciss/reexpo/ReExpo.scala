@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 object ReExpo {
-  val log: Logger = new Logger("re-expo")
+  val log: Logger = Logger("re-expo")
 
   case class Config(
                      expoId   : Long    = 0L,
@@ -130,7 +130,7 @@ class ReExpo() {
     cookies = Nil
   }
 
-  def listWeaves(expoId: Long): Seq[Weave] = {
+  def listWeaves(expoId: Long): Seq[WeaveMeta] = {
     val res = post("editor" :: "weaves" :: Nil, data = Map("research" -> expoId.toString))
 
     /*
@@ -157,7 +157,7 @@ class ReExpo() {
           }
           val title = cellTitle.text()
           val created = parseDate(cellDate.text())
-          Weave(id = weaveId, tpe = tpe, title = title, created = created)
+          WeaveMeta(id = weaveId, tpe = tpe, title = title, created = created)
 
         case _ =>
           throw RCException(s"Unexpected weave data '$row'")
