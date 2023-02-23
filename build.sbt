@@ -15,6 +15,7 @@ lazy val commonSettings = Seq(
   libraryDependencies ++= Seq(
     "com.softwaremill.sttp.client3" %% "core"       % deps.common.sttp,       // HTTP client
     "de.sciss"                      %% "fileutil"   % deps.common.fileUtil,   // utility functions
+    "de.sciss"                      %% "log"        % deps.common.log,        // text logging
     "de.sciss"                      %% "numbers"    % deps.common.numbers,    // numeric utilities
     "org.jsoup"                     %  "jsoup"      % deps.common.jsoup,      // HTML parsing
     "org.rogach"                    %% "scallop"    % deps.common.scallop     // command line option parsing
@@ -36,6 +37,7 @@ lazy val deps = new {
   val common = new {
     val fileUtil        = "1.1.5"
     val jsoup           = "1.15.3"
+    val log             = "0.1.1"
     val numbers         = "0.2.1"
     val scallop         = "4.1.0"
     val sttp            = "3.8.9"

@@ -34,7 +34,7 @@ object Test {
 
       import org.rogach.scallop.*
 
-      printedName = "ReExpo"
+      printedName = "ReExpo - Test"
       private val default = Config()
 
       val expoId: Opt[Long] = opt(required = true,
