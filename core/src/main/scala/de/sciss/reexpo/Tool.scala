@@ -13,6 +13,8 @@
 
 package de.sciss.reexpo
 
+import org.json4s.native.Serialization
+import org.json4s.{CustomSerializer, NoTypeHints}
 import sttp.model.Uri
 
 import java.time.{LocalDate, LocalDateTime}
@@ -20,14 +22,18 @@ import java.time.{LocalDate, LocalDateTime}
 case class Rect2D(x: Int, y: Int, width: Int, height: Int) {
   def right : Int = x + width
   def bottom: Int = y + height
-  
+
   def cx: Double = x + 0.5 * width
   def cy: Double = y + 0.5 * height
 }
 
 case class ToolCommon(id: Long, name: String, created: LocalDate, layer: Int, locked: Boolean = false)
+
 case class ToolStyle(bounds: Rect2D, rotation: Double = 0.0)
 
+object Tool {
+
+}
 sealed trait Tool {
   def common: ToolCommon
   def style : ToolStyle

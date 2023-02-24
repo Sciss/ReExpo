@@ -30,12 +30,15 @@ lazy val core = project.in(file("core"))
     name        := s"$baseName-core",
     description := "Core model",
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.client3" %% "core"     % deps.core.sttp,     // HTTP client
-      "de.sciss"                      %% "fileutil" % deps.core.fileUtil, // utility functions
-      "de.sciss"                      %% "log"      % deps.core.log,      // text logging
-      "de.sciss"                      %% "numbers"  % deps.core.numbers,  // numeric utilities
-      "org.jsoup"                     %  "jsoup"    % deps.core.jsoup,    // HTML parsing
-      "org.rogach"                    %% "scallop"  % deps.core.scallop,  // command line option parsing
+      "com.softwaremill.sttp.client3" %% "core"           % deps.core.sttp,     // HTTP client
+      "de.sciss"                      %% "fileutil"       % deps.core.fileUtil, // utility functions
+      "de.sciss"                      %% "log"            % deps.core.log,      // text logging
+      "de.sciss"                      %% "numbers"        % deps.core.numbers,  // numeric utilities
+      "org.json4s"                    %% "json4s-core"    % deps.core.json4s,   // JSON serialization
+      "org.json4s"                    %% "json4s-native"  % deps.core.json4s,   // JSON serialization
+      "org.jsoup"                     %  "jsoup"          % deps.core.jsoup,    // HTML parsing
+      "org.rogach"                    %% "scallop"        % deps.core.scallop,  // command line option parsing
+      "org.scalatest"                 %% "scalatest"      % deps.test.scalaTest % Test,
     ),
     console / initialCommands := {
       """import de.sciss.reexpo._
@@ -60,15 +63,19 @@ lazy val ui = project.in(file("ui"))
 lazy val deps = new {
   val core = new {
     val fileUtil        = "1.1.5"
-    val jsoup           = "1.15.3"
+    val json4s          = "4.0.6"
+    val jsoup           = "1.15.4"
     val log             = "0.1.1"
     val numbers         = "0.2.1"
     val scallop         = "4.1.0"
-    val sttp            = "3.8.9"
+    val sttp            = "3.8.11"
   }
   val ui = new {
     val desktop         = "0.11.4"
     val swingPlus       = "0.5.0"
+  }
+  val test = new {
+    val scalaTest       = "3.2.15"
   }
 }
 

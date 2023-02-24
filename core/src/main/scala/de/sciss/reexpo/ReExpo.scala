@@ -91,19 +91,26 @@ object ReExpo {
       re.logout()
     }
   }
-}
-class ReExpo() {
-  import ReExpo.log
 
   private val baseUri         = uri"https://www.researchcatalogue.net"
-  private val client          = SimpleHttpClient()
-  private var cookies         = Seq.empty[CookieWithMeta]
 
   // e.g. "30/01/2023"
-  private val slashDateFmt    = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.US)
+  private val slashDateFmt = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.US)
   // e.g. "30.01.2023 - 15:29:37"
   private val modifiedDateFmt = DateTimeFormatter.ofPattern("dd.MM.yyyy' - 'HH:mm:ss", Locale.US)
+  
+  def parseDate(s: String): LocalDate =
+    LocalDate.parse(s, slashDateFmt)
 
+  def parseDateTime(s: String): LocalDateTime =
+    if s.isEmpty then LocalDateTime.MIN else LocalDateTime.parse(s, modifiedDateFmt)
+}
+class ReExpo() {
+  import ReExpo.{log, slashDateFmt, modifiedDateFmt, baseUri, parseDate, parseDateTime}
+
+  private val client          = SimpleHttpClient()
+  private var cookies         = Seq.empty[CookieWithMeta]
+  
   def login(username: String, password: String): Unit = {
     val u   = baseUri.addPath("session", "login")
     val req = emptyRequest.body(Map("username" -> username, "password" -> password)).post(u)
@@ -177,12 +184,6 @@ class ReExpo() {
     require (s.endsWith("px"))
     s.substring(0, s.length - 2).toInt
   }
-
-  private def parseDate(s: String): LocalDate =
-    LocalDate.parse(s, slashDateFmt)
-
-  private def parseDateTime(s: String): LocalDateTime =
-    if s.isEmpty then LocalDateTime.MIN else LocalDateTime.parse(s, modifiedDateFmt)
 
   def listContent(expoId: Long, weaveId: Long): Seq[Tool] = {
     val res = post("editor" :: "content" :: Nil, data = Map("research" -> expoId.toString, "weave" -> weaveId.toString))
