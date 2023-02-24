@@ -92,25 +92,122 @@ object ReExpo {
     }
   }
 
-  private val baseUri         = uri"https://www.researchcatalogue.net"
+  private val baseUri = uri"https://www.researchcatalogue.net"
 
   // e.g. "30/01/2023"
   private val slashDateFmt = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.US)
   // e.g. "30.01.2023 - 15:29:37"
   private val modifiedDateFmt = DateTimeFormatter.ofPattern("dd.MM.yyyy' - 'HH:mm:ss", Locale.US)
-  
+
   def parseDate(s: String): LocalDate =
     LocalDate.parse(s, slashDateFmt)
 
   def parseDateTime(s: String): LocalDateTime =
     if s.isEmpty then LocalDateTime.MIN else LocalDateTime.parse(s, modifiedDateFmt)
+
+  def parseContent(s: String): Seq[Tool] = {
+    val doc = Jsoup.parseBodyFragment(s)
+    val divTools = doc.select("div.tool").asScala.toList
+    divTools.flatMap { divTool =>
+      // data-id="1927174"
+      // data-title="picture #2"
+      // data-date="31/01/2023"
+      // data-rotate="0"
+      // data-tool="picture"
+
+      val toolId = divTool.attr("data-id").toLong
+      val name = divTool.attr("data-title")
+      val created = parseDate(divTool.attr("data-date"))
+      // XXX TODO: we should use a proper CSS parser; Jsoup doesn't support this out of the box
+      val css = mkCssMap(divTool.attr("style"))
+      val layer = css("z-index").toInt
+      val locked = divTool.attr("data-locked").toInt != 0
+      val common = ToolCommon(id = toolId, name = name, created = created, layer = layer, locked = locked)
+
+      val bounds = Rect2D(
+        x = cssPx(css("left")),
+        y = cssPx(css("top")),
+        width = cssPx(css("width")),
+        height = cssPx(css("height"))
+      )
+      val rotation = divTool.attr("data-rotate").toDouble // Option.getOrElse(0.0)
+      val style = ToolStyle(bounds = bounds, rotation = rotation)
+      val toolTpe = divTool.attr("data-tool")
+      val divContent = divTool.select("div.tool-content")
+      val fTool: PartialFunction[String, Tool] = {
+        case "text" =>
+          val author = divTool.attr("data-text-author")
+          val modified = parseDateTime(divTool.attr("data-text-modified"))
+          val body = divContent.select("span.html-text-editor-content")
+          val content = HtmlContent(body.html())
+          TextTool(common, style, content, author = author, modified = modified)
+
+        case "simpletext" =>
+          val body = divContent.select("span.simple-text-editor-content")
+          val content = HtmlContent(body.html())
+          SimpleTextTool(common, style, content)
+
+        case "picture" =>
+          val content = Option.empty[ImageContent] // XXX TODO parse rendered page
+          PictureTool(common, style, content)
+
+        case "audio" =>
+          val content = Option.empty[AudioContent] // XXX TODO parse rendered page
+          AudioTool(common, style, content)
+
+        case "video" =>
+          val content = Option.empty[VideoContent] // XXX TODO parse rendered page
+          VideoTool(common, style, content)
+
+        case "comment" =>
+          val author = divTool.attr("data-text-author")
+          val modified = parseDateTime(divTool.attr("data-text-modified"))
+          val body = divContent.select("textarea")
+          val content = body.text()
+          val resolved = divTool.attr("data-resolution") == "resolved"
+          CommentTool(common, style, content, author = author, modified = modified, resolved = resolved)
+
+        case "shape" =>
+          val body = divContent.select("svg")
+          val content = SvgContent(body.outerHtml())
+          val shapeType = body.attr("data-type") match {
+            case "rect" => ShapeType.Rect
+            case "circle" => ShapeType.Circle
+            case "line" => ShapeType.HLine
+            case "verticalLine" => ShapeType.VLine
+            case "arrowLeft" => ShapeType.ArrowLeft
+            case "arrowUp" => ShapeType.ArrowUp
+            case "arrowRight" => ShapeType.ArrowRight
+            case "arrowDown" => ShapeType.ArrowDown
+          }
+          ShapeTool(common, style, content, tpe = shapeType)
+      }
+
+      val toolOpt = fTool.lift(toolTpe)
+      if toolOpt.isEmpty then log.warn(s"listContent: Skipping unknown tool '$toolTpe'")
+      toolOpt
+    }
+  }
+
+  // XXX TODO hackish
+  private def mkCssMap(s: String): Map[String, String] =
+    s.split(';').iterator.map { pair =>
+      val Array(key, value) = pair.split(':')
+      (key, value)
+    }.toMap
+
+  // XXX TODO hackish
+  private def cssPx(s: String): Int = {
+    require(s.endsWith("px"))
+    s.substring(0, s.length - 2).toInt
+  }
 }
 class ReExpo() {
-  import ReExpo.{log, slashDateFmt, modifiedDateFmt, baseUri, parseDate, parseDateTime}
+  import ReExpo.{log, slashDateFmt, modifiedDateFmt, baseUri, parseDate, parseDateTime, parseContent}
 
   private val client          = SimpleHttpClient()
   private var cookies         = Seq.empty[CookieWithMeta]
-  
+
   def login(username: String, password: String): Unit = {
     val u   = baseUri.addPath("session", "login")
     val req = emptyRequest.body(Map("username" -> username, "password" -> password)).post(u)
@@ -172,19 +269,6 @@ class ReExpo() {
     }
   }
 
-  // XXX TODO hackish
-  private def mkCssMap(s: String): Map[String, String] =
-    s.split(';').iterator.map { pair =>
-      val Array(key, value) = pair.split(':')
-      (key, value)
-    } .toMap
-
-  // XXX TODO hackish
-  private def cssPx(s: String): Int = {
-    require (s.endsWith("px"))
-    s.substring(0, s.length - 2).toInt
-  }
-
   def listContent(expoId: Long, weaveId: Long): Seq[Tool] = {
     val res = post("editor" :: "content" :: Nil, data = Map("research" -> expoId.toString, "weave" -> weaveId.toString))
     if log.level <= Level.Debug then {
@@ -192,88 +276,7 @@ class ReExpo() {
       println(res)
       println("<< res")
     }
-
-    val doc       = Jsoup.parseBodyFragment(res)
-    val divTools  = doc.select("div.tool").asScala.toList
-    divTools.flatMap { divTool =>
-      // data-id="1927174"
-      // data-title="picture #2"
-      // data-date="31/01/2023"
-      // data-rotate="0"
-      // data-tool="picture"
-
-      val toolId      = divTool.attr("data-id").toLong
-      val name        = divTool.attr("data-title")
-      val created     = parseDate(divTool.attr("data-date"))
-      // XXX TODO: we should use a proper CSS parser; Jsoup doesn't support this out of the box
-      val css         = mkCssMap(divTool.attr("style"))
-      val layer       = css("z-index").toInt
-      val locked      = divTool.attr("data-locked").toInt != 0
-      val common      = ToolCommon(id = toolId, name = name, created = created, layer = layer, locked = locked)
-
-      val bounds      = Rect2D(
-        x       = cssPx(css("left")),
-        y       = cssPx(css("top")),
-        width   = cssPx(css("width")),
-        height  = cssPx(css("height"))
-      )
-      val rotation    = divTool.attr("data-rotate").toDouble // Option.getOrElse(0.0)
-      val style       = ToolStyle(bounds = bounds, rotation = rotation)
-      val toolTpe     = divTool.attr("data-tool")
-      val divContent  = divTool.select("div.tool-content")
-      val fTool: PartialFunction[String, Tool] = {
-        case "text" =>
-          val author    = divTool.attr("data-text-author")
-          val modified  = parseDateTime(divTool.attr("data-text-modified"))
-          val body      = divContent.select("span.html-text-editor-content")
-          val content   = HtmlContent(body.html())
-          TextTool(common, style, content, author = author, modified = modified)
-
-        case "simpletext" =>
-          val body      = divContent.select("span.simple-text-editor-content")
-          val content   = HtmlContent(body.html())
-          SimpleTextTool(common, style, content)
-
-        case "picture" =>
-          val content   = Option.empty[ImageContent]  // XXX TODO parse rendered page
-          PictureTool(common, style, content)
-
-        case "audio" =>
-          val content = Option.empty[AudioContent]    // XXX TODO parse rendered page
-          AudioTool(common, style, content)
-
-        case "video" =>
-          val content   = Option.empty[VideoContent]  // XXX TODO parse rendered page
-          VideoTool(common, style, content)
-
-        case "comment" =>
-          val author    = divTool.attr("data-text-author")
-          val modified  = parseDateTime(divTool.attr("data-text-modified"))
-          val body      = divContent.select("textarea")
-          val content   = body.text()
-          val resolved  = divTool.attr("data-resolution") == "resolved"
-          CommentTool(common, style, content, author = author, modified = modified, resolved = resolved)
-
-        case "shape" =>
-          val body      = divContent.select("svg")
-          val content   = SvgContent(body.outerHtml())
-          val shapeType = body.attr("data-type") match {
-            case "rect"         => ShapeType.Rect
-            case "circle"       => ShapeType.Circle
-            case "line"         => ShapeType.HLine
-            case "verticalLine" => ShapeType.VLine
-            case "arrowLeft"    => ShapeType.ArrowLeft
-            case "arrowUp"      => ShapeType.ArrowUp
-            case "arrowRight"   => ShapeType.ArrowRight
-            case "arrowDown"    => ShapeType.ArrowDown
-          }
-          ShapeTool(common, style, content, tpe = shapeType)
-      }
-
-      val toolOpt = fTool.lift(toolTpe)
-      if toolOpt.isEmpty then log.warn(s"listContent: Skipping unknown tool '$toolTpe'")
-      toolOpt
-    }
+    parseContent(res)
   }
 
   private def post(path: Seq[String], data: Map[String, String] = Map.empty /*, files = None, headers = None*/): String = {
