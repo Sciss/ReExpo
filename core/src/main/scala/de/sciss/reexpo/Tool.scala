@@ -64,17 +64,17 @@ case class PictureTool(common: ToolCommon, style: ToolStyle,
                        content: Option[ImageContent])
   extends Tool
 
-//case class VideoContent(width: Int, height: Int, cache: Uri, poster: ImageContent)
-//
-//case class VideoTool(common: ToolCommon, style: ToolStyle,
-//                     content: Option[VideoContent])
-//  extends Tool
-//
-//case class AudioContent(cache: Uri)
-//
-//case class AudioTool(common: ToolCommon, style: ToolStyle,
-//                     content: Option[AudioContent])
-//  extends Tool
+case class VideoContent(width: Int, height: Int, cache: Uri, poster: ImageContent)
+
+case class VideoTool(common: ToolCommon, style: ToolStyle,
+                     content: Option[VideoContent])
+  extends Tool
+
+case class AudioContent(cache: Uri)
+
+case class AudioTool(common: ToolCommon, style: ToolStyle,
+                     content: Option[AudioContent])
+  extends Tool
 
 case class CommentTool(common: ToolCommon, style: ToolStyle,
                        content: String, author: String, modified: LocalDateTime, resolved: Boolean)
@@ -82,10 +82,10 @@ case class CommentTool(common: ToolCommon, style: ToolStyle,
 
 case class SvgContent(source: String)
 
-//enum ShapeType {
-//  case Rect, Circle, HLine, VLine, ArrowLeft, ArrowUp, ArrowRight, ArrowDown
-//}
-//
-//case class ShapeTool(common: ToolCommon, style: ToolStyle,
-//                     content: SvgContent, tpe: ShapeType)
-//  extends Tool
+enum ShapeType {
+  case Rect, Circle, HLine, VLine, ArrowLeft, ArrowUp, ArrowRight, ArrowDown
+}
+
+case class ShapeTool(common: ToolCommon, style: ToolStyle,
+                     content: SvgContent, tpe: ShapeType)
+  extends Tool
