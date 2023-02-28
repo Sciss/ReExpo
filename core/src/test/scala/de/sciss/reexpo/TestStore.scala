@@ -8,7 +8,18 @@ object TestStore {
     val s     = Store.readTextFile(userHome / "Downloads" / "test-tools.txt")
     val tools = ReExpo.parseContent(s)
     import Store.formats
-    val json  = Serialization.writePretty[Seq[Tool]](tools)
+//    type T = Either[Long, Tool]
+    type T = Tool
+//    val e: Seq[T] = tools.map(t => Right(t)) :+ Left(12345L)
+//    val json  = Serialization.writePretty[Seq[T]](e)
+    val json  = Serialization.writePretty[Seq[T]](tools)
     println(json)
+//    val back = Serialization.read[Seq[T]](json)
+    val back = Serialization.read[T](Serialization.writePretty[T](tools.head))
+    println()
+    println("FIRST:")
+    println(back /*.head*/)
+//    println("LAST:")
+//    println(back.last)
   }
 }
