@@ -147,17 +147,17 @@ object ReExpo {
           val content = HtmlContent(body.html())
           SimpleTextTool(common, style, content)
 
-        case "picture" =>
-          val content = Option.empty[ImageContent] // XXX TODO parse rendered page
-          PictureTool(common, style, content)
-
-        case "audio" =>
-          val content = Option.empty[AudioContent] // XXX TODO parse rendered page
-          AudioTool(common, style, content)
-
-        case "video" =>
-          val content = Option.empty[VideoContent] // XXX TODO parse rendered page
-          VideoTool(common, style, content)
+//        case "picture" =>
+//          val content = Option.empty[ImageContent] // XXX TODO parse rendered page
+//          PictureTool(common, style, content)
+//
+//        case "audio" =>
+//          val content = Option.empty[AudioContent] // XXX TODO parse rendered page
+//          AudioTool(common, style, content)
+//
+//        case "video" =>
+//          val content = Option.empty[VideoContent] // XXX TODO parse rendered page
+//          VideoTool(common, style, content)
 
         case "comment" =>
           val author = divTool.attr("data-text-author")
@@ -167,20 +167,20 @@ object ReExpo {
           val resolved = divTool.attr("data-resolution") == "resolved"
           CommentTool(common, style, content, author = author, modified = modified, resolved = resolved)
 
-        case "shape" =>
-          val body = divContent.select("svg")
-          val content = SvgContent(body.outerHtml())
-          val shapeType = body.attr("data-type") match {
-            case "rect" => ShapeType.Rect
-            case "circle" => ShapeType.Circle
-            case "line" => ShapeType.HLine
-            case "verticalLine" => ShapeType.VLine
-            case "arrowLeft" => ShapeType.ArrowLeft
-            case "arrowUp" => ShapeType.ArrowUp
-            case "arrowRight" => ShapeType.ArrowRight
-            case "arrowDown" => ShapeType.ArrowDown
-          }
-          ShapeTool(common, style, content, tpe = shapeType)
+//        case "shape" =>
+//          val body = divContent.select("svg")
+//          val content = SvgContent(body.outerHtml())
+//          val shapeType = body.attr("data-type") match {
+//            case "rect"         => ShapeType.Rect
+//            case "circle"       => ShapeType.Circle
+//            case "line"         => ShapeType.HLine
+//            case "verticalLine" => ShapeType.VLine
+//            case "arrowLeft"    => ShapeType.ArrowLeft
+//            case "arrowUp"      => ShapeType.ArrowUp
+//            case "arrowRight"   => ShapeType.ArrowRight
+//            case "arrowDown"    => ShapeType.ArrowDown
+//          }
+//          ShapeTool(common, style, content, tpe = shapeType)
       }
 
       val toolOpt = fTool.lift(toolTpe)

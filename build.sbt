@@ -34,8 +34,10 @@ lazy val core = project.in(file("core"))
       "de.sciss"                      %% "fileutil"       % deps.core.fileUtil, // utility functions
       "de.sciss"                      %% "log"            % deps.core.log,      // text logging
       "de.sciss"                      %% "numbers"        % deps.core.numbers,  // numeric utilities
-      "org.json4s"                    %% "json4s-core"    % deps.core.json4s,   // JSON serialization
-      "org.json4s"                    %% "json4s-native"  % deps.core.json4s,   // JSON serialization
+//      "org.json4s"                    %% "json4s-core"    % deps.core.json4s,   // JSON serialization
+//      "org.json4s"                    %% "json4s-native"  % deps.core.json4s,   // JSON serialization
+      "com.github.plokhotnyuk.jsoniter-scala" %% "jsoniter-scala-core"    % deps.core.jsoniter,
+      "com.github.plokhotnyuk.jsoniter-scala" %% "jsoniter-scala-macros"  % deps.core.jsoniter % "provided",
       "org.jsoup"                     %  "jsoup"          % deps.core.jsoup,    // HTML parsing
       "org.rogach"                    %% "scallop"        % deps.core.scallop,  // command line option parsing
       "org.scalatest"                 %% "scalatest"      % deps.test.scalaTest % Test,
@@ -64,6 +66,7 @@ lazy val deps = new {
   val core = new {
     val fileUtil        = "1.1.5"
     val json4s          = "4.0.6"
+    val jsoniter        = "2.21.2"
     val jsoup           = "1.15.4"
     val log             = "0.1.1"
     val numbers         = "0.2.1"

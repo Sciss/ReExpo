@@ -14,32 +14,48 @@
 package de.sciss.reexpo
 
 import de.sciss.file.File
-import org.json4s.native.Serialization
-import org.json4s.{CustomSerializer, Formats, JString, ShortTypeHints}
+import sttp.model.Uri
+//import org.json4s.native.Serialization
+//import org.json4s.{CustomSerializer, Formats, JString, ShortTypeHints}
 
 import java.io.FileInputStream
 import java.time.{LocalDate, LocalDateTime}
 
 object Store {
-  private val ToolTypeHints = ShortTypeHints(List(
-    classOf[TextTool], classOf[CommentTool]
-  ))
 
-  // N.B. we do _not_ use the formatting the RC uses
-  private val dateSer = new CustomSerializer[LocalDate](_ => ({
-    case js: JString => LocalDate.parse(js.s)
-  }, {
-    case x: LocalDate => JString(x.toString)
-  }))
+  import com.github.plokhotnyuk.jsoniter_scala.macros._
+  import com.github.plokhotnyuk.jsoniter_scala.core._
 
-  // N.B. we do _not_ use the formatting the RC uses
-  private val dateTimeSer = new CustomSerializer[LocalDateTime](_ => ({
-    case js: JString => LocalDateTime.parse(js.s)
-  }, {
-    case x: LocalDateTime => JString(x.toString)
-  }))
+  given uriCodec: JsonValueCodec[Uri] = new JsonValueCodec[Uri] {
+    override def decodeValue(in: JsonReader, default: Uri): Uri = Uri(in.readString(""))
 
-  implicit val formats: Formats = Serialization.formats(ToolTypeHints) + dateSer + dateTimeSer
+    override def encodeValue(x: Uri, out: JsonWriter): Unit = out.writeVal(x.toString)
+
+    override val nullValue: Uri = null.asInstanceOf[Uri]
+  }
+
+  given toolCodec   : JsonValueCodec[Tool]      = JsonCodecMaker.make[Tool]
+  given toolSeqCodec: JsonValueCodec[Seq[Tool]] = JsonCodecMaker.make[Seq[Tool]]
+
+  //  private val ToolTypeHints = ShortTypeHints(List(
+//    classOf[TextTool], classOf[CommentTool]
+//  ))
+//
+//  // N.B. we do _not_ use the formatting the RC uses
+//  private val dateSer = new CustomSerializer[LocalDate](_ => ({
+//    case js: JString => LocalDate.parse(js.s)
+//  }, {
+//    case x: LocalDate => JString(x.toString)
+//  }))
+//
+//  // N.B. we do _not_ use the formatting the RC uses
+//  private val dateTimeSer = new CustomSerializer[LocalDateTime](_ => ({
+//    case js: JString => LocalDateTime.parse(js.s)
+//  }, {
+//    case x: LocalDateTime => JString(x.toString)
+//  }))
+//
+//  implicit val formats: Formats = Serialization.formats(ToolTypeHints) + dateSer + dateTimeSer
 
 //  def readTool(s: String): Tool = {
 //    Serialization.read[Tool](s)
